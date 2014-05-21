@@ -384,3 +384,7 @@
 /modules/suggest/dist
 
 /modules/spatial/build/
+
+*.iml
+atlassian-ide-plugin.xml
+/**/out

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config>
+  <luceneMatchVersion>LUCENE_41</luceneMatchVersion>
+  <dataDir>${solr.data.dir:}</dataDir>
+  <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.NIOFSDirectoryFactory}"/>
+  <indexConfig> </indexConfig>
+  <jmx />
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <autoCommit>
+      <maxTime>15000000</maxTime>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
+    <updateLog>
+      <str name="dir">${solr.data.dir:}</str>
+    </updateLog>
+  </updateHandler>
+
+  <query>
+    <maxBooleanClauses>1024</maxBooleanClauses>
+    <filterCache class="solr.FastLRUCache"
+                 size="1638400"
+                 initialSize="1638400"
+                 autowarmCount="10240"/>
+    <queryResultCache class="solr.FastLRUCache"
+                      size="1638400"
+                      initialSize="1638400"
+                      autowarmCount="10240"/>
+    <documentCache class="solr.FastLRUCache"
+                   size="1638400"
+                   initialSize="1638400"
+                   autowarmCount="10240"/>
+    <fieldValueCache class="solr.FastLRUCache"
+                     size="1638400"
+                     autowarmCount="1638400"
+                     showItems="10240" />
+    <enableLazyFieldLoading>true</enableLazyFieldLoading>
+    <queryResultWindowSize>1000</queryResultWindowSize>
+    <queryResultMaxDocsCached>20000</queryResultMaxDocsCached>
+    <listener event="newSearcher" class="solr.QuerySenderListener">
+      <arr name="queries"> </arr>
+    </listener>
+    <listener event="firstSearcher" class="solr.QuerySenderListener">
+      <arr name="queries">
+        <lst>
+          <str name="q">쿠팡</str>
+        </lst>
+      </arr>
+    </listener>
+    <useColdSearcher>false</useColdSearcher>
+    <maxWarmingSearchers>2</maxWarmingSearchers>
+  </query>
+
+  <requestDispatcher handleSelect="true" >
+    <requestParsers enableRemoteStreaming="true"
+                    multipartUploadLimitInKB="204800" />
+    <httpCaching never304="true" />
+  </requestDispatcher>
+
+  <searchComponent name="terms" class="solr.TermsComponent"/>
+  <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <bool name="terms">true</bool>
+      <bool name="distrib">false</bool>
+    </lst>
+    <arr name="components">
+      <str>terms</str>
+    </arr>
+  </requestHandler>
+  <requestHandler name="/analysis/field"
+                  startup="lazy"
+                  class="solr.FieldAnalysisRequestHandler" />
+  <requestHandler name="/analysis/document"
+                  class="solr.DocumentAnalysisRequestHandler"
+                  startup="lazy" />
+  <requestHandler name="/select" class="solr.SearchHandler">
+    <lst name="defaults">
+      <int name="rows">100</int>
+      <str name="qf">ctg1</str>
+    </lst>
+  </requestHandler>
+  <requestHandler name="/admin/"
+                  class="solr.admin.AdminHandlers" />
+  <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+    <lst name="invariants">
+      <str name="q">서울</str>
+    </lst>
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+    </lst>
+  </requestHandler>
+  <admin>
+    <defaultQuery>다이어리</defaultQuery>
+  </admin>
+
+  <queryParser name="payloadParser" class="com.coupang.search.plugin.queryparser.PayloadQParserPlugin"/>
+  <similarity class="com.coupang.search.plugin.queryparser.PayloadSimilarity"/>
+
+</config>

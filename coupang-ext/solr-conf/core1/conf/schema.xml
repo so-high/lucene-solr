@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="plp_search" version="1.5">
+<fields>
+	<field name="uniqID" 			type="string" 	indexed="true" stored="true" required="true" multiValued="false"/>
+	<field name="productId"			type="int" 	indexed="true" stored="true"/>
+	<field name="saleStartDateTime"	type="string" 	indexed="true" stored="true"/>
+	<field name="saleEndDateTime"	type="string" 	indexed="true" stored="true"/>
+	<field name="saleStartDate"		type="string" 	indexed="true" stored="true"/>
+	<field name="saleEndDate"		type="string" 	indexed="true" stored="true"/>
+	<field name="salesPrice"		type="int" 	indexed="true" stored="true"/>
+	<field name="originalPrice"		type="int" 	indexed="true" stored="true"/>
+	<field name="originalPriceType"	type="string" 	indexed="true" stored="true"/>
+	<field name="isGoods"			type="string" 	indexed="true" stored="true"/>
+	<field name="isCoupangShow"		type="string" 	indexed="true" stored="true"/>
+	<field name="isDirectlyUse"		type="string" 	indexed="true" stored="true"/>
+	<field name="logisticsType"		type="string" 	indexed="true" stored="true"/>
+	<field name="cate1"				type="string" 	indexed="true" stored="true"/>
+	<field name="cate2"				type="string" 	indexed="true" stored="true"/>
+	<field name="cate3"				type="string" 	indexed="true" stored="true"/>
+	<field name="cate4"				type="string" 	indexed="true" stored="true"/>
+	<field name="minorCateCode"		type="string" 	indexed="true" stored="true"/>
+	<field name="showDate"			type="string" 	indexed="true" stored="true"/>
+	<field name="salesAmount"		type="int" 	indexed="true" stored="true"/>
+	<field name="salesHitAccu"		type="int" 	indexed="true" stored="true"/>
+	<field name="salesHit"			type="int" 	indexed="true" stored="true"/>
+	<field name="saleCountByHour"	type="int" 	indexed="true" stored="true"/>
+	<field name="attribute"			type="string" 	indexed="true" stored="true"/>
+	<field name="mobileShow"		type="string" 	indexed="true" stored="true"/>
+	<field name="mobileWebShow"		type="string" 	indexed="true" stored="true"/>
+	<field name="isAdultOnly"		type="string" 	indexed="true" stored="true"/>
+	<field name="showHurry"			type="string" 	indexed="true" stored="true"/>
+	<field name="isSoldOut"			type="string" 	indexed="true" stored="true"/>
+	<field name="_version_" 		type="long" indexed="true" stored="true"/>
+	<field name="weight" 			type="float" indexed="true" stored="true"/>
+</fields>
+<uniqueKey>uniqID</uniqueKey>
+<defaultSearchField>cate1</defaultSearchField>
+
+<types>
+	<fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+	<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+	<fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+</types>
+</schema>
